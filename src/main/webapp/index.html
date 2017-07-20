@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="cinema">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" ui-sref="dashboard">Cinema</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a ui-sref="dashboard">Dashboard</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Movie
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a ui-sref="addmovie">Add movie</a></li>
+                        <li><a ui-sref="getmovie">Get movies</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div ui-view></div>
+
+
+<link rel="stylesheet" href="scripts/bootstrap.min.css">
+
+
+    <script src="scripts/jquery-2.1.4.min.js"></script>
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/ui-router.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+
+    <script src="app/app.js"></script>
+    <script src="app/app-state-manager.js"></script>
+
+    <script src="app/service/dal.js"></script>
+    <script src="app/service/movie.js"></script>
+
+    <script src="app/feature/dashboard/dashboard-controller.js"></script>
+    <script src="app/feature/movie/add-movie/add-movie-controller.js"></script>
+    <script src="app/feature/movie/get-movie/get-movie-controller.js"></script>
+
+
+</body>
+</html>

@@ -24,6 +24,14 @@ public class CdEndpoint {
         return service.getAllCds();
     }
 
+    @Path("/json/{id}")
+    @GET
+    @Produces({ "application/json" })
+    public String getCd(@PathParam("id") Long id) {
+        return service.getCd(id);
+    }
+
+
     @Path("/json")
     @POST
     @Produces({ "application/json" })
@@ -44,5 +52,11 @@ public class CdEndpoint {
     public String deleteCd(@PathParam("id") Long id) {
         return service.deleteCd(id);
     }
+
+    @Path("/json")
+    @DELETE
+    @Produces({ "application/json" })
+    public String deleteAllCds() {return service.deleteAllCds();}
+
     
 }

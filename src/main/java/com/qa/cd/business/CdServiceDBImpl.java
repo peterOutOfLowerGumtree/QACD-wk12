@@ -29,6 +29,16 @@ public class CdServiceDBImpl implements CdService {
     }
 
     @Override
+    public String getCd(Long id) {
+        Cd cdInDb = findCd(id);
+        if (cdInDb != null) {
+            return util.getJSONForObject(cdInDb);
+        }
+        return "";
+    }
+
+
+    @Override
     public String createCd(String cd) {
         Cd aCd = util.getObjectForJSON(cd, Cd.class);
         manager.persist(aCd);
@@ -53,6 +63,12 @@ public class CdServiceDBImpl implements CdService {
             manager.remove(cdInDb);
         }
         return "{\"message\": \"cd successfully deleted\"}";
+    }
+
+    public String deleteAllCds() {
+        Query query = manager.createQuery("DELETE FROM Cd");
+        query.executeUpdate();
+        return "{\"message\": \"all cd successfully deleted\"}";
     }
 
     private Cd findCd(Long id) {

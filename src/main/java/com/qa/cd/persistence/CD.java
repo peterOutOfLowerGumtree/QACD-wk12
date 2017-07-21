@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Cd {
+public class CD {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,11 +16,11 @@ public class Cd {
     private String genre;
     private String released;
 
-    public Cd() {
+    public CD() {
 
     }
 
-    public Cd(String title, String artist, String genre, String released) {
+    public CD(String title, String artist, String genre, String released) {
         this.title = title;
         this.artist = artist;
         this.genre = genre;
@@ -29,6 +29,10 @@ public class Cd {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long Id) {
+        this.id = Id;
     }
 
     public String getTitle() {

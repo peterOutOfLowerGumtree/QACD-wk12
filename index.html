@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CD Shop</title>
+    <style>
+        body {
+            font-family: courier;
+            background-color: powderblue;
+            text-align: center;
+        }
+
+        #text {
+            margin-left: 20%;
+            margin-right: 20%;
+            border: 3px dotted black;
+            background: white;
+            padding: 15px;
+            background-clip: padding-box
+        }
+
+        p {
+            text-align: left;
+            font-size: 80%;
+        }
+
+        input[type="text"] {
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="text">
+        <input type="text" id="textbox" placeholder="enter number..." onkeypress="return isNumber(event)"><br/><br/>
+        <button onclick="getCdInfo()">Get CDs</button><button onclick="deleteCds()">Delete CDs</button>
+        <hr/>
+        <p id="output">Dummy text</p>
+    </div>
+    <script>
+        var textBox;
+        var requestURL = 'http://localhost:8080/QACD/rest/cd/json';
+        var requestGet = new XMLHttpRequest();
+        requestGet.open('GET', requestURL);
+        requestGet.responseType = 'json'
+        requestGet.send();
+
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+
+        function getCdInfo() {
+            document.getElementById("output").innerHTML = "";
+            var data = document.getElementById("textbox").value;
+            textBox = requestGet.response;
+            if (textBox.length < 1) {
+                document.getElementById("output").innerHTML += "No CDs in database.";
+            } else {
+                if (data === "") {
+                    for (var i = 0; i < textBox.length; i++) {
+                        document.getElementById("output").innerHTML += "id: " + textBox[i].id + ", CD title: " +
+                            textBox[i].title + ", artist: " +
+                            textBox[i].artist + ", genre: " + textBox[i].genre + ", released: " + textBox[i].released +
+                            "<br><br>";
+                    }
+                } else {
+                    for (var i = 0; i < textBox.length; i++) {
+                        if (parseInt(textBox[i].id) === parseInt(data)) {
+                            document.getElementById("output").innerHTML += "id: " + textBox[i].id + ", CD title: " +
+                                textBox[i].title + ", artist: " +
+                                textBox[i].artist + ", genre: " + textBox[i].genre + ", released: " + textBox[i].released +
+                                "<br><br>";
+                        }
+                    }
+                }
+            }
+        }
+
+        function deleteCds() {
+            var data = document.getElementById("textbox").value;
+            requestGet = new XMLHttpRequest();
+            requestGet.open('DELETE', requestURL+"/"+data);
+            requestGet.responseType = 'json'
+            requestGet.send();
+
+            document.getElementById("output").innerHTML = "Item id " + data + " has probably been deleted";
+        }
+    </script>
+
+</body>
+
+</html>
